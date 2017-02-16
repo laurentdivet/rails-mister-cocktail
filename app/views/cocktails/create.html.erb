@@ -1,2 +1,12 @@
-<h1>Cocktails#create</h1>
-<p>Find me in app/views/cocktails/create.html.erb</p>
+
+<div class="text-center">
+<h1><%= @cocktail.name %></h1>
+<%= simple_form_for [@cocktail, @dose] do |f| %>
+<%= f.input :description, placeholder: "6cl au moins" %>
+<%= f.input :ingredient_id, collection: Ingredient.all, prompt: "chose  a ingredient " %>
+<%= f.button :submit, class: "btn btn-primary" %>
+<%= end %>
+
+<%= link_to 'back', cocktails_path %>
+
+</div>

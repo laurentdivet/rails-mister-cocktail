@@ -1,4 +1,3 @@
-
 class CocktailsController < ApplicationController
   # GET /cocktails
   def index

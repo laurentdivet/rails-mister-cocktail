@@ -1,0 +1,41 @@
+<div class="navbar-wagon">
+  <!-- Logo -->
+  <%= link_to root_path, class: "navbar-wagon-brand" do %>
+    <%= image_tag "icon-60x60.png" %>
+  <% end %>
+
+  <!-- Right Navigation -->
+  <div class="navbar-wagon-right">
+
+    <%= link_to 'Api', cocktails_path(format: :json), class: "navbar-wagon-item navbar-wagon-link hidden-xs" %>
+    <%#= link_to 'Alcoholic cocktails', cocktails_path, class: 'navbar-wagon-item navbar-wagon-link' %>
+    <!-- Search form -->
+    <form action="/cocktails/search" class="navbar-wagon-search">
+      <input type="text" name="term" class="navbar-wagon-search-input" placeholder="Search something">
+      <button type="submit" class="navbar-wagon-search-btn">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+
+    <!-- Notification -->
+
+    <!-- Button (call-to-action) -->
+    <%= link_to t(".top_call_to_action", default: "Add a new cocktail"), new_cocktail_path, class: "navbar-wagon-item navbar-wagon-button btn hidden-xs" %>
+  </div>
+
+  <!-- Dropdown list appearing on mobile only -->
+  <div class="navbar-wagon-item hidden-sm hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+        <li>
+          <%= link_to t(".top_call_to_action", default: "Add a new cocktail"), new_cocktail_path, class: "navbar-wagon-item" %>
+        </li>
+        <li>
+          <%= link_to 'Api', cocktails_path(format: :json),
+            class: "navbar-wagon-item navbar-wagon-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

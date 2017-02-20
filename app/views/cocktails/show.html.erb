@@ -1,19 +1,46 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <h1><%= @cocktail.name %></h1>
-      <p>Recette</p>
-      <ul>
-        <% @cocktail.doses.each do |dose| %>
-          <li><%= dose.description %> - <%= dose.ingredient.name %> - <%= link_to "delete", dose_path(dose), method: :delete %></li>
+<!-- <p id="notice"><%= notice %></p> -->
+
+<h1 class='text-center'><%= @cocktail.name.capitalize %></h1>
+<div class="row">
+    <div class="cocktail">
+      <div class="cocktail-img col-md-5">
+        <% if @cocktail.photo? %>
+          <%= cl_image_tag @cocktail.photo.path, width: 300, height: 500, crop: :fill %>
         <% end %>
-      </ul>
-      <%= link_to 'Back', cocktails_path %>
+        <h2><%= @cocktail.category %></h2>
+      </div>
+
+      <div class="cocktail-recipe col-md-offset-1 col-md-6">
+        <h3>Recipe</h3>
+        <p>instructions : <%= @cocktail.instructions %></p>
+        <div class="cocktail-doses">
+          <ul class="list-unstyled cocktail-list-doses">
+            <% @cocktail.doses.each do |dose| %>
+              <li>
+                <div class="col-xs-11">
+                  <%= dose.description %> of <%= link_to dose.ingredient.name,
+                  search_cocktails_path('ingredient': dose.ingredient.id ) unless dose.ingredient.nil? %>
+                </div>
+                <%#= link_to 'delete', dose_path(dose), method: :delete, data: { confirm: 'Are you sure?' } %>
+                <div class="col-xs-1">
+                  <%= link_to dose_path(dose), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  <% end %>
+                </div>
+
+              </li>
+            <% end %>
+          </ul>
+          <div class="cocktail-add-dose">
+            <%= render 'doses/form', dose: @dose %>
+          </div>
+        </div>
+        <div class="cocktail-edit">
+          <%= link_to 'Edit cocktail', edit_cocktail_path(@cocktail), class: 'btn btn-primary' %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </div>  <%#= link_to 'Add a dose', new_cocktail_dose_path(@cocktail), class: 'btn btn-primary' %>
 
+<%#= link_to 'Back', cocktails_path %>
 
-<p>Ici on peut créer une nouvelle dose</p>
-
-<%= render 'cocktails/doses_form' %>

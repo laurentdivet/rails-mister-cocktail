@@ -1,0 +1,59 @@
+.cocktail{
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: top;
+  // flex-wrap: wrap;
+  margin-top: 50px;
+  padding: 20px;
+  max-height: auto;
+  .cocktail-img{
+    // flex: 1 0 30%;
+    position: relative;
+    max-height: auto;
+    margin: 0 auto;
+    object-fit: cover;
+    h2{
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      color: #EEE;
+      font-size: 25px;
+      font-weight: normal;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .cocktail-recipe{
+    padding: 20px;
+    background-color: $gray-lighter;
+    box-shadow: $border-shadow;
+    border-radius: 5px;
+
+    // width: 30%;
+    // flex: 1 0 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cocktail-list-doses{
+    padding: 20px;
+    height: auto;
+    // ul, li{
+    //   padding: 0px;
+    //   margin: 0px;
+    // }
+  }
+
+  .cocktail-dose{
+    padding: 20px;
+    height: auto;
+    display: block;
+    // background-color: $gray-light;
+    box-shadow: $border-shadow;
+  }
+}
+
+.cocktail-add-dose{
+    // margin: 20px 0;
+    padding: 20px 0;
+  }

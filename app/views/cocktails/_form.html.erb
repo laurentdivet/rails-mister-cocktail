@@ -1,5 +1,23 @@
 <%= simple_form_for(@cocktail) do |f| %>
-  <%= f.input :name, placeholder: "Mojito" %>
-  <%= f.button :submit, class: "btn btn-primary"  %>
-  <%= f.input :picture, as: :attachinary %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  <%= f.input :name %>
+  <%= f.input :photo, as: :attachinary %>
+  </div>
+  <div class="form-doses">
+    <h3>Doses</h3>
+    <ul class='list-unstyled'>
+      <% @cocktail.doses.each do |dose| %>
+        <li><%= dose.description %> of <%= dose.ingredient.name %> </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+<% content_for(:after_js) do %>
+  <%= cloudinary_js_config %>
 <% end %>

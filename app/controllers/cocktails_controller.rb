@@ -1,35 +1,58 @@
 class CocktailsController < ApplicationController
-  # GET /cocktails
+  before_action :set_cocktail, only: [:show, :edit, :update, :destroy]
+
   def index
-    @cocktails = Cocktail.all
+    # @cocktails = Cocktail.all
+    @cocktails = Cocktail.order(:name)
+    @cocktails = @cocktails.where("lower(cocktails.name) like ?", "%#{params[:term].downcase}%").page if params[:term]
+    @cocktails = Ingredient.find(params[:ingredient]).cocktails.page if params[:ingredient]
+    respond_to do |format|
+      format.html  { @cocktails = @cocktails.page params[:page] }# index.html.erb
+      format.json  { render json: @cocktails }
+    end
   end
 
-  # GET /cocktails/1
   def show
-    @cocktail = Cocktail.find(params[:id])
-    @new_dose = Dose.new
-    @ingredients = Ingredient.all
+    @dose = Dose.new
   end
 
-  # GET /cocktails/new
   def new
     @cocktail = Cocktail.new
   end
 
-  # POST /cocktails
+  def edit
+  end
+
   def create
     @cocktail = Cocktail.new(cocktail_params)
+
     if @cocktail.save
-      redirect_to cocktail_path(@cocktail)
+      redirect_to @cocktail, notice: 'Cocktail was successfully created.'
     else
+      flash[:alert] = "invalid cocktail"
       render :new
     end
   end
 
-  private
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def cocktail_params
-    params.require(:cocktail).permit(:name, :description, :picture)
+  def update
+    if @cocktail.update(cocktail_params)
+      redirect_to @cocktail, notice: 'Cocktail was successfully updated.'
+    else
+      render :edit
+    end
   end
+
+  def destroy
+    @cocktail.destroy
+    redirect_to cocktails_url, notice: 'Cocktail was successfully destroyed.'
+  end
+
+  private
+    def set_cocktail
+      @cocktail = Cocktail.find(params[:id])
+    end
+
+    def cocktail_params
+      params.require(:cocktail).permit(:name, :photo)
+    end
 end

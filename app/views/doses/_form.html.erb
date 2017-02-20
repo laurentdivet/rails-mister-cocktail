@@ -1,0 +1,9 @@
+<%= simple_form_for [@cocktail, @dose], :html => { :class => 'form-inline' } do |f| %>
+
+  <div class="form-inputs">
+    <%= f.input :description, label_html: {class: "sr-only"}, input_html: {placeholder: 'dose : 6cl, a little ...'} %>
+    <%#= f.input :ingredient_id,label: 'Ingredient', collection: Ingredient.names_with_index %>
+    <%= f.input :ingredient, as: :autocomplete, url: autocomplete_ingredient_name_ingredients_path,'data-auto-focus' => true, label_html: {class: "sr-only"}, input_html: {placeholder: 'ingredient'} %>
+    <%= f.button :submit %>
+  </div>
+<% end %>
